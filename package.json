@@ -2,7 +2,7 @@
   "scripts": {
     "start-hot": "babel-node ./webpack/dev_server.js",
     "start-dev": "babel-node ./server/main.js",
-    "build": "babel ./webpack/_prod.config.js -o ./webpack/prod.config.js && rm -rf dist && webpack -p --config ./webpack/prod.config.js"
+    "build": "babel ./webpack/prod.config.js -o ./webpack/_prod.config.js && rm -rf dist && webpack -p --config ./webpack/_prod.config.js"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
