@@ -1,13 +1,13 @@
-import { createSubject } from './subject'
+import { async } from 'most-subject'
 
 const createModel = (mods, initialValue) => {
-  const [actions$, actionObserver] = createSubject()
+  const subject = async()
   const executeAction = (model, action) => 
     mods[action.name](model, action.data)
-  const $value = actions$.scan(executeAction, initialValue)
-  const dispatch = (name, data) => actionObserver.next({ name, data })
-  
-  return { $value, dispatch }
+  const value$ = subject.scan(executeAction, initialValue)
+  const dispatch = (name, data) => subject.next({ name, data })
+
+  return { value$, dispatch }
 }
 
 module.exports = {

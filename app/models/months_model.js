@@ -1,6 +1,6 @@
 import { createModel } from './../helpers/model'
 import { addMonths, format } from 'date-fns'
-import { range, curry } from 'ramda'
+import { range, curryN, __ } from 'ramda'
 
 const leadDays = (date) =>
   []
@@ -17,12 +17,12 @@ const buildDays = (date) => [
   ...trailingDays(date)
 ]
 
-const monthKey = curry(format)(_, 'MMYYYY')
+const monthKey = curryN(2, format)(__, 'YYYYMM')
 
-const buildMonth = (date) => {
+const buildMonth = (date) => ({
   key: monthKey(date),
   days: buildDays(date)
-}
+})
 
 const buildMonths = (focusDate) => 
   range(-5, 5)
@@ -34,6 +34,6 @@ const monthsMods = {
 }
 
 const MonthsModel = () => 
-  createModel(monthsMods, buildMonths())
+  createModel(monthsMods, buildMonths(new Date()))
 
 export default MonthsModel
