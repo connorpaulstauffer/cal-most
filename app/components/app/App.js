@@ -1,5 +1,5 @@
 import styles from './styles.scss'
-import { createCalendarVnode$ } from './../calendar/Calendar'
+import { Calendar$ } from './../calendar/Calendar'
 import { createAnimFrame$ } from './../../utilities/animation_frames'
 
 const App = ({ calendarVnode }) =>
@@ -9,10 +9,10 @@ const App = ({ calendarVnode }) =>
   
 const render = (calendarVnode) => <App calendarVnode={ calendarVnode } />
 
-const createAppVnode$ = () => {
+const App$ = () => {
   const animFrame$ = createAnimFrame$()
   
-  return createCalendarVnode$({ animFrame$ }).map(render)
+  return Calendar$({ animFrame$ }).map(render)
 }
 
-export { createAppVnode$ }
+export { App$ }

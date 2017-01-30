@@ -17,7 +17,6 @@ const CalendarHeader = () =>
 
 const render = () => <CalendarHeader />
 
-const createCalendarHeaderVnode$ = ({ animFrame$ }) =>
-  just(true).map(render)
+const CalendarHeader$ = ({ animFrame$ }) => just(true).map(render)
   
-export { createCalendarHeaderVnode$ }
+export { CalendarHeader$ }
