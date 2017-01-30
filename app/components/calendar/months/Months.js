@@ -1,15 +1,11 @@
-import { Month, onInit } from './month/Month'
+import { Month } from './month/Month'
 import styles from './styles.scss'
 import { curry } from 'ramda'
 
 const Months = ({ months, props }) => 
   <div className={ styles.months }>
     { 
-      months.map(month =>
-        <Month 
-          month={ month } 
-          onComponentDidMount={ curry(onInit)(month, props) } />
-      ) 
+      months.map(month => <Month month={ month } props={ props } />) 
     }
   </div>
 
