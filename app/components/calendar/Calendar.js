@@ -12,7 +12,7 @@ const Calendar = ({ calendarHeaderVnode, monthsVnode }) =>
     { monthsVnode }
   </div>
   
-const render = (calendarHeaderVnode, monthsVnode) => 
+const init = (calendarHeaderVnode, monthsVnode) => 
   <Calendar 
     calendarHeaderVnode={ calendarHeaderVnode }
     monthsVnode={ monthsVnode } />
@@ -25,7 +25,7 @@ const Calendar$ = ({ animFrame$ }) =>  {
   focusMonthModel.value$.tap(console.log.bind(console)).drain()
   
   return combine(
-    render,
+    init,
     CalendarHeader$({ animFrame$, monthsModel, focusMonthModel }),
     Months$({ animFrame$, monthsModel, focusMonthModel })
   )

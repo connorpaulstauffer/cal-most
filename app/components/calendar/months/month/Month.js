@@ -1,7 +1,18 @@
 import { format, getDate } from 'date-fns'
 import styles from './styles.scss'
 
-const Month = (month) =>
+const setFocus = (props, domEl) => {
+  setTimeout(() => window.scroll(0, domEl.offsetTop - 66))
+}
+
+const onInit = (month, props, domEl) => {
+  props.focusMonthModel.value$
+    .tap((focusMonthKey) => 
+      (focusMonthKey === month.key) && setFocus(props, domEl)
+    ).drain()
+}
+
+const Month = ({ month }) =>
   <div className={ styles.month }>
     <h4 className={ styles.header }>
       <span className="month">{ format(month.value, 'MMMM ') }</span>
@@ -18,4 +29,4 @@ const Month = (month) =>
     </ol>
   </div>
   
-export { Month }
+export { Month, onInit }

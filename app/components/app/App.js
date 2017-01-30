@@ -7,12 +7,12 @@ const App = ({ calendarVnode }) =>
     { calendarVnode }
   </div>
   
-const render = (calendarVnode) => <App calendarVnode={ calendarVnode } />
+const init = (calendarVnode) => <App calendarVnode={ calendarVnode } />
 
 const App$ = () => {
   const animFrame$ = createAnimFrame$()
   
-  return Calendar$({ animFrame$ }).map(render)
+  return Calendar$({ animFrame$ }).map(init)
 }
 
 export { App$ }
