@@ -2,12 +2,12 @@ import styles from './styles.scss'
 import { createCalendarVnode$ } from './../calendar/Calendar'
 import { createAnimFrame$ } from './../../utilities/animation_frames'
 
-const App = ({ fawnVnode }) =>
+const App = ({ calendarVnode }) =>
   <div className={ styles.app }>
-    { fawnVnode }
+    { calendarVnode }
   </div>
   
-const render = (fawnVnode) => <App fawnVnode={ fawnVnode } />
+const render = (calendarVnode) => <App calendarVnode={ calendarVnode } />
 
 const createAppVnode$ = () => {
   const animFrame$ = createAnimFrame$()
