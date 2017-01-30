@@ -1,20 +1,30 @@
 import { createModel } from './../helpers/model'
-import { addMonths, format } from 'date-fns'
 import { range, curryN, __ } from 'ramda'
+import { 
+  addMonths, format, getDay, startOfMonth, lastDayOfMonth, addDays, 
+  getDaysInMonth 
+} from 'date-fns'
 
-const leadDays = (date) =>
-  []
-  
-const mainDays = (date) =>
-  []
-  
-const trailingDays = (date) =>
-  []
+const buildDay = (value, type) => ({ value, type })
+
+const fromStartOfMonth = (date, vec) => addDays(startOfMonth(date), vec)
+
+const trailingDays = (date) => 
+  range(-getDay(startOfMonth(date)), 0)
+    .map((vec) => buildDay(fromStartOfMonth(date, vec), 'trailing'))
+
+const mainDays = (date) => 
+  range(0, getDaysInMonth(date))
+    .map((vec) => buildDay(fromStartOfMonth(date, vec), 'main'))
+
+const leadingDays = (date) =>
+  range(1, 7 - getDay(lastDayOfMonth(date)))
+    .map((vec) => buildDay(addDays(lastDayOfMonth(date), vec), 'leading'))
 
 const buildDays = (date) => [
-  ...leadDays(date), 
+  ...trailingDays(date),
   ...mainDays(date), 
-  ...trailingDays(date)
+  ...leadingDays(date)
 ]
 
 const monthKey = curryN(2, format)(__, 'YYYYMM')
@@ -26,7 +36,7 @@ const buildMonth = (date) => ({
 
 const buildMonths = (focusDate) => 
   range(-5, 5)
-    .map((vec) => addMonths(focusDate, vec))
+    .map((vec) => addMonths(new Date(focusDate), vec))
     .map(buildMonth)
   
 const monthsMods = {
