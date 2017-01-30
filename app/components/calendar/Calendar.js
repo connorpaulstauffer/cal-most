@@ -3,6 +3,7 @@ import { curry } from 'ramda'
 import { CalendarHeader$ } from './calendar_header/CalendarHeader'
 import styles from './styles.scss'
 import MonthsModel from './../../models/months_model'
+import FocusMonthModel from './../../models/focus_month_model'
 import { Months$ } from './months/Months'
 
 const Calendar = ({ calendarHeaderVnode, monthsVnode }) => 
@@ -18,13 +19,15 @@ const render = (calendarHeaderVnode, monthsVnode) =>
 
 const Calendar$ = ({ animFrame$ }) =>  {
   const monthsModel = MonthsModel()
+  const focusMonthModel = FocusMonthModel()
   
   monthsModel.value$.tap(console.log.bind(console)).drain()
+  focusMonthModel.value$.tap(console.log.bind(console)).drain()
   
   return combine(
     render,
-    CalendarHeader$({ animFrame$, monthsModel }),
-    Months$({ animFrame$, monthsModel })
+    CalendarHeader$({ animFrame$, monthsModel, focusMonthModel }),
+    Months$({ animFrame$, monthsModel, focusMonthModel })
   )
 }
 

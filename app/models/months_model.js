@@ -44,7 +44,6 @@ const monthsMods = {
   SET_FOCUS: (months, focusMonth) => buildMonths(focusMonth)
 }
 
-const MonthsModel = () => 
-  createModel(monthsMods, buildMonths(new Date()))
+const MonthsModel = () => createModel(monthsMods, buildMonths(new Date()))
 
 export default MonthsModel
