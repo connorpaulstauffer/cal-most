@@ -31,7 +31,8 @@ const monthKey = curryN(2, format)(__, 'YYYYMM')
 
 const buildMonth = (date) => ({
   key: monthKey(date),
-  days: buildDays(date)
+  days: buildDays(date),
+  value: date
 })
 
 const buildMonths = (focusDate) => 
