@@ -1,3 +1,30 @@
 .month {
   
 }
+
+.header {
+  
+}
+
+.days {
+  list-style: none;
+  border: solid #708090;
+  border-width: 1px 0 0 1px;
+  padding: 0;
+  margin: 0;
+  
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.day {
+  float: left;
+  width: 14.2857%;
+  height: 14vw;
+  border: solid #708090;
+  border-width: 0 1px 1px 0;
+  padding: 5px;
+}
