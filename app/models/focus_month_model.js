@@ -1,11 +1,14 @@
 import { createModel } from './../helpers/model'
-import { format } from 'date-fns'
+import { format, addMonths } from 'date-fns'
 
-const defaultFocusMonth = () => format(new Date(), 'YYYYMM')
+const buildFocusMonth = (date) => 
+  ({ value: date, key: format(date, 'YYYYMM') })
+
+const defaultFocusMonth = () => buildFocusMonth(new Date())
 
 const focusMonthMods = {
-  INCREMENT: () => console.log('inc'),
-  DECREMENT: () => console.log('dec')
+  INCREMENT: (oldFocus) => buildFocusMonth(addMonths(oldFocus.value, 1)),
+  DECREMENT: (oldFocus) => buildFocusMonth(addMonths(oldFocus.value, -1))
 }
 
 const FocusMonthModel = () => createModel(focusMonthMods, defaultFocusMonth())

@@ -24,14 +24,14 @@ const watchFocus = (month, props, domEl) =>
 const onInit = (month, props, domEl) => {
   props.focusMonthModel.value$
     .take(1)
-    .tap((focusMonthKey) => 
-      (focusMonthKey === month.key) && setFocus(props, domEl)
+    .tap((focusMonth) => 
+      (focusMonth.key === month.key) && setFocus(props, domEl)
     )
     .drain()
     
   props.focusMonthModel.value$
-    .tap((focusMonthKey) => 
-      (focusMonthKey === month.key) && watchFocus(month, props, domEl)
+    .tap((focusMonth) => 
+      (focusMonth.key === month.key) && watchFocus(month, props, domEl)
     )
     .drain()
 }

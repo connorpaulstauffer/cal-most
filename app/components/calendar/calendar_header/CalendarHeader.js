@@ -1,11 +1,13 @@
-import { just } from 'most'
+import { format } from 'date-fns'
 import styles from './styles.scss'
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-const CalendarHeader = () => 
+const CalendarHeader = ({ focusMonth }) => 
   <div className={ styles.calendarHeader }>
-    <h2 className={ styles.header }>January</h2>
+    <h2 className={ styles.header }>
+      { format(focusMonth.value, 'MMMM YYYY') }
+    </h2>
     <ol className={ styles.days }>
       { 
         DAYS.map((day) => 
@@ -15,8 +17,9 @@ const CalendarHeader = () =>
     </ol>
   </div>
 
-const render = () => <CalendarHeader />
+const render = (focusMonth) => <CalendarHeader focusMonth={ focusMonth } />
 
-const CalendarHeader$ = ({ animFrame$ }) => just(true).map(render)
+const CalendarHeader$ = ({ focusMonthModel }) => 
+  focusMonthModel.value$.map(render)
   
 export { CalendarHeader$ }

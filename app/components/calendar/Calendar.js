@@ -18,15 +18,15 @@ const init = (calendarHeaderVnode, monthsVnode) =>
     monthsVnode={ monthsVnode } />
 
 const Calendar$ = ({ animFrame$, scrollTop$ }) =>  {
-  const monthsModel = MonthsModel()
   const focusMonthModel = FocusMonthModel()
+  const monthsModel = MonthsModel()
   
   monthsModel.value$.tap(console.log.bind(console)).drain()
   focusMonthModel.value$.tap(console.log.bind(console)).drain()
   
   return combine(
     init,
-    CalendarHeader$({ animFrame$, monthsModel, focusMonthModel }),
+    CalendarHeader$({ focusMonthModel }),
     Months$({ animFrame$, scrollTop$, monthsModel, focusMonthModel })
   )
 }
