@@ -1,6 +1,6 @@
-const scrollTop = animationFrameReady$ =>
-  animationFrameReady$.map(() => document.body.scrollTop).skipRepeats()
+const createScrollTop$ = animFrame$ =>
+  animFrame$.map(() => document.body.scrollTop).skipRepeats()
   
 module.exports = {
-  scrollTop
+  createScrollTop$
 }

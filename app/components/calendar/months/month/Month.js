@@ -6,9 +6,20 @@ const setFocus = (props, domEl) => {
   setTimeout(() => window.scroll(0, domEl.offsetTop - 66))
 }
 
-const watchFocus = (props, domEl) => {
-  debugger
-}
+const watchFocus = (month, props, domEl) => 
+  props.scrollTop$
+  .map(scrollTop => ({
+    offTop: domEl.offsetTop - 66 - scrollTop,
+    offBottom: scrollTop - (domEl.offsetTop + domEl.scrollHeight - 66)
+  }))
+  .filter(({ offTop, offBottom }) => offTop > 0 || offBottom > 0)
+  .take(1)
+  .tap(({ offTop, offBottom }) => 
+    offTop > 0 ? 
+      props.focusMonthModel.dispatch('DECREMENT') :
+      props.focusMonthModel.dispatch('INCREMENT')
+  )
+  .drain()
 
 const onInit = (month, props, domEl) => {
   props.focusMonthModel.value$
@@ -20,7 +31,7 @@ const onInit = (month, props, domEl) => {
     
   props.focusMonthModel.value$
     .tap((focusMonthKey) => 
-      (focusMonthKey === month.key) && watchFocus(props, domEl)
+      (focusMonthKey === month.key) && watchFocus(month, props, domEl)
     )
     .drain()
 }

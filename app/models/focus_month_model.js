@@ -4,7 +4,8 @@ import { format } from 'date-fns'
 const defaultFocusMonth = () => format(new Date(), 'YYYYMM')
 
 const focusMonthMods = {
-  FOCUS: (oldFocus, newFocus) => newFocus
+  INCREMENT: () => console.log('inc'),
+  DECREMENT: () => console.log('dec')
 }
 
 const FocusMonthModel = () => createModel(focusMonthMods, defaultFocusMonth())

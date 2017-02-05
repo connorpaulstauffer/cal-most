@@ -17,7 +17,7 @@ const init = (calendarHeaderVnode, monthsVnode) =>
     calendarHeaderVnode={ calendarHeaderVnode }
     monthsVnode={ monthsVnode } />
 
-const Calendar$ = ({ animFrame$ }) =>  {
+const Calendar$ = ({ animFrame$, scrollTop$ }) =>  {
   const monthsModel = MonthsModel()
   const focusMonthModel = FocusMonthModel()
   
@@ -27,7 +27,7 @@ const Calendar$ = ({ animFrame$ }) =>  {
   return combine(
     init,
     CalendarHeader$({ animFrame$, monthsModel, focusMonthModel }),
-    Months$({ animFrame$, monthsModel, focusMonthModel })
+    Months$({ animFrame$, scrollTop$, monthsModel, focusMonthModel })
   )
 }
 
