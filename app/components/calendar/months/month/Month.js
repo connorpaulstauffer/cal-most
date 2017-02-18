@@ -3,37 +3,56 @@ import styles from './styles.scss'
 import { curry } from 'ramda'
 
 const setFocus = (props, domEl) => {
-  setTimeout(() => window.scroll(0, domEl.offsetTop - 66))
+  debugger
+  window.scroll(0, domEl.offsetTop - 66)
 }
 
-const watchFocus = (month, props, domEl) => 
+const watchFocus = (month, props, domEl) => {
+  // debugger
   props.scrollTop$
-  .map(scrollTop => ({
-    offTop: domEl.offsetTop - 66 - scrollTop,
-    offBottom: scrollTop - (domEl.offsetTop + domEl.scrollHeight - 66)
-  }))
-  .filter(({ offTop, offBottom }) => offTop > 0 || offBottom > 0)
-  .take(1)
-  .tap(({ offTop, offBottom }) => 
-    offTop > 0 ? 
-      props.focusMonthModel.dispatch('DECREMENT') :
-      props.focusMonthModel.dispatch('INCREMENT')
-  )
-  .drain()
+    .map(scrollTop => ({
+      offTop: domEl.offsetTop - 66 - scrollTop,
+      offBottom: scrollTop - (domEl.offsetTop + domEl.scrollHeight - 66)
+    }))
+    .filter(({ offTop, offBottom }) => offTop > 0 || offBottom > 0)
+    .take(1)
+    .tap(({ offTop, offBottom }) => 
+      offTop > 0 ? 
+        props.focusMonthModel.dispatch('DECREMENT') :
+        props.focusMonthModel.dispatch('INCREMENT')
+    )
+    .drain()
+}
 
 const onInit = (month, props, domEl) => {
-  props.focusMonthModel.value$
-    .take(1)
-    .tap((focusMonth) => 
-      (focusMonth.key === month.key) && setFocus(props, domEl)
+  // props.focusMonthModel.value$
+  //   .take(1)
+  //   .tap((focusMonth) => 
+  //     (focusMonth.key === month.key) && 
+  //       setTimeout(() => setFocus(props, domEl))
+  //   )
+  //   .drain()  
+    
+  props.monthsModel.value$
+    .sample(
+      (focusMonth) => {
+        (focusMonth.key === month.key) && 
+          setTimeout(() => setFocus(props, domEl))
+      },
+      props.focusMonthModel.value$
     )
     .drain()
     
   props.focusMonthModel.value$
     .tap((focusMonth) => 
-      (focusMonth.key === month.key) && watchFocus(month, props, domEl)
+      (focusMonth.key === month.key) && 
+        setTimeout(() => watchFocus(month, props, domEl))
     )
     .drain()
+}
+
+const onUpdate = (month, props, domEl) => {
+  
 }
 
 const _Month = ({ month }) =>

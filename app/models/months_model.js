@@ -2,7 +2,7 @@ import { createModel } from './../helpers/model'
 import { range, curryN, __ } from 'ramda'
 import { 
   addMonths, format, getDay, startOfMonth, lastDayOfMonth, addDays, 
-  getDaysInMonth 
+  getDaysInMonth
 } from 'date-fns'
 
 const buildDay = (value, type) => ({ value, type })
